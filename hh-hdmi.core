@@ -1,0 +1,200 @@
+CAPI=2:
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# SPDX-FileCopyrightText: 2026 Howard M. Harte
+#
+# FuseSoC manifest for hh-hdmi -- HDMI TMDS + DDC + CEC cores.
+#
+# The portable, tool-agnostic file list + compile order. The TMDS path is
+# runtime-reconfigurable (the line/frame timing is a per-mode input, not fixed to one
+# resolution). Only the serializers carry a vendor primitive, picked at compile
+# time -- Gowin OSER10, the Xilinx 7-series OSERDESE2 pair under VENDOR_XILINX, the
+# UltraScale+ OSERDESE3 under VENDOR_XILINX_US, or a generic model in simulation --
+# so the core is not tied to a family. The encoder itself and every bench are
+# prim-free.
+name: "harte:hdmi:hh-hdmi:0.1.0"
+description: "HDMI TMDS video/audio encoder, 7-series and UltraScale+ serializers, DDC/EDID reader and CEC follower"
+
+filesets:
+  # HDMI TMDS video/audio path. Compile order: lane/packet/audio before the encoder;
+  # the serializer is instantiated at the board top (it carries the vendor primitive).
+  hdmi_tmds:
+    file_type: systemVerilogSource
+    files:
+      - rtl/hdmi_channel.sv
+      - rtl/hdmi_packet.sv
+      - rtl/hdmi_audio_src.sv
+      - rtl/hdmi_encoder.sv
+      - rtl/hdmi_serializer.sv
+
+  # UltraScale/UltraScale+ serializer (10:8 gearbox + OSERDESE3 under
+  # VENDOR_XILINX_US); instantiated at the board top in place of hdmi_serializer.
+  serializer_us:
+    file_type: systemVerilogSource
+    files:
+      - rtl/hdmi_serializer_us.sv
+
+  # The 10:8 gearbox alone, for a native-mode 8:1 serializer the board top owns.
+  gearbox:
+    file_type: systemVerilogSource
+    files:
+      - rtl/hdmi_gearbox_10to8.sv
+
+  # DDC / E-DDC EDID reader (CPU-readable byte window).
+  ddc:
+    file_type: systemVerilogSource
+    files:
+      - rtl/edid_i2c.sv
+
+  # HDMI-CEC follower (remote keys through a parameterized key map, OSD name,
+  # One Touch Play); see README.
+  cec:
+    file_type: systemVerilogSource
+    files:
+      - rtl/hdmi_cec.sv
+
+  # 1280x720p60 video clocks for the Gowin GW5A Tang Console boards: two PLL
+  # stages and a CLKDIV from 50 MHz. Pick one per board; both define the module
+  # pll_video, so a board top instantiates either unchanged.
+  gowin_pll_60k:
+    file_type: verilogSource
+    files:
+      - pll/pll_video_60k.v
+  gowin_pll_138k:
+    file_type: verilogSource
+    files:
+      - pll/pll_video_138k.v
+
+  # Self-checking benches (iverilog). Prim-free.
+  tb_tmds:
+    file_type: systemVerilogSource
+    files:
+      - sim/tb_di_equiv.sv
+      - sim/tb_di_bch.sv
+      - sim/tb_sync_timing.sv
+      - sim/tb_encoder_modes.sv
+      - sim/tb_channel.sv
+      - sim/tb_packet.sv
+      - sim/tb_audio_src.sv
+      - sim/tb_spd.sv
+      - sim/tb_avi.sv
+  tb_serializer:
+    file_type: systemVerilogSource
+    files:
+      - sim/tb_serializer.sv
+  tb_ddc:
+    file_type: systemVerilogSource
+    files:
+      - sim/tb_edid_i2c.sv
+      - sim/tb_edid_i2c_err.sv
+  tb_cec:
+    file_type: systemVerilogSource
+    files:
+      - sim/tb_cec.sv
+  tb_serializer_us:
+    file_type: systemVerilogSource
+    files:
+      - sim/tb_serializer_us.sv
+  tb_gearbox:
+    file_type: systemVerilogSource
+    files:
+      - sim/tb_gearbox.sv
+  tb_pll_video:
+    file_type: systemVerilogSource
+    files:
+      - sim/tb_pll_video.sv
+
+parameters:
+  # The generic hdmi_serializer model and free-running pll_video clocks, for a
+  # simulation with no vendor library.
+  PLL_SIM_FREE_RUN:
+    datatype: bool
+    paramtype: vlogdefine
+    default: true
+  # The diagnostic DVI-only encoder build.
+  HDMI_DVI_ONLY:
+    datatype: bool
+    paramtype: vlogdefine
+    default: true
+
+targets:
+  # Lint / elaborate the prim-free encoder path (no Gowin primitives -> portable).
+  default: &default
+    filesets: [hdmi_tmds]
+    toplevel: hdmi_encoder
+
+  sim_di_equiv:
+    default_tool: icarus
+    filesets: [hdmi_tmds, tb_tmds]
+    toplevel: tb_di_equiv
+  sim_di_bch:
+    default_tool: icarus
+    filesets: [hdmi_tmds, tb_tmds]
+    toplevel: tb_di_bch
+  sim_sync_timing:
+    default_tool: icarus
+    filesets: [hdmi_tmds, tb_tmds]
+    toplevel: tb_sync_timing
+  sim_encoder_modes:
+    default_tool: icarus
+    filesets: [hdmi_tmds, tb_tmds]
+    toplevel: tb_encoder_modes
+  sim_encoder_dvi:
+    default_tool: icarus
+    filesets: [hdmi_tmds, tb_tmds]
+    parameters: [HDMI_DVI_ONLY]
+    toplevel: tb_encoder_modes
+  sim_channel:
+    default_tool: icarus
+    filesets: [hdmi_tmds, tb_tmds]
+    toplevel: tb_channel
+  sim_packet:
+    default_tool: icarus
+    filesets: [hdmi_tmds, tb_tmds]
+    toplevel: tb_packet
+  sim_audio_src:
+    default_tool: icarus
+    filesets: [hdmi_tmds, tb_tmds]
+    toplevel: tb_audio_src
+  sim_serializer:
+    default_tool: icarus
+    filesets: [hdmi_tmds, tb_serializer]
+    parameters: [PLL_SIM_FREE_RUN]
+    toplevel: tb_serializer
+  sim_spd:
+    default_tool: icarus
+    filesets: [hdmi_tmds, tb_tmds]
+    toplevel: tb_spd
+  sim_avi:
+    default_tool: icarus
+    filesets: [hdmi_tmds, tb_tmds]
+    toplevel: tb_avi
+  sim_edid:
+    default_tool: icarus
+    filesets: [ddc, tb_ddc]
+    toplevel: tb_edid_i2c
+  sim_edid_err:
+    default_tool: icarus
+    filesets: [ddc, tb_ddc]
+    toplevel: tb_edid_i2c_err
+  sim_cec:
+    default_tool: icarus
+    filesets: [cec, tb_cec]
+    toplevel: tb_cec
+  sim_serializer_us:
+    default_tool: icarus
+    filesets: [serializer_us, tb_serializer_us]
+    toplevel: tb_serializer_us
+  sim_gearbox:
+    default_tool: icarus
+    filesets: [gearbox, tb_gearbox]
+    toplevel: tb_gearbox
+  sim_pll_video_60k:
+    default_tool: icarus
+    filesets: [gowin_pll_60k, tb_pll_video]
+    parameters: [PLL_SIM_FREE_RUN]
+    toplevel: tb_pll_video
+  sim_pll_video_138k:
+    default_tool: icarus
+    filesets: [gowin_pll_138k, tb_pll_video]
+    parameters: [PLL_SIM_FREE_RUN]
+    toplevel: tb_pll_video

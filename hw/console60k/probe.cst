@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: MIT OR Apache-2.0
+// SPDX-FileCopyrightText: 2026 Howard M. Harte
+// Console dock pin mapping shared with hdmi-tester's console60k target.
+IO_LOC "sys_clk" V22;
+IO_PORT "sys_clk" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_LOC "btn_rst_n" AB13;
+IO_PORT "btn_rst_n" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_LOC "uart_txd" U15;
+IO_PORT "uart_txd" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_LOC "uart_rxd" V14;
+IO_PORT "uart_rxd" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_LOC "ddc_scl" M13;
+IO_PORT "ddc_scl" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_LOC "ddc_sda" L13;
+IO_PORT "ddc_sda" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+IO_LOC "hpd" K13;
+IO_PORT "hpd" IO_TYPE=LVCMOS33 PULL_MODE=NONE;

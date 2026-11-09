@@ -1,0 +1,32 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# SPDX-FileCopyrightText: 2026 Howard M. Harte
+
+[tasks]
+all_prove
+all_cover
+all_negative
+
+[options]
+timeout 240
+all_prove: mode prove
+all_prove: depth 12
+all_cover: mode cover
+all_cover: depth 12
+all_negative: mode bmc
+all_negative: depth 12
+
+[engines]
+all_prove: abc pdr
+all_cover: smtbmc boolector
+all_negative: smtbmc boolector
+
+[script]
+plugin -i slang
+all_prove: read_slang --top channel_formal  hdmi_channel.sv channel_formal.sv
+all_cover: read_slang --top channel_formal  hdmi_channel.sv channel_formal.sv
+all_negative: read_slang -D FORMAL_NEGATIVE --top channel_formal  hdmi_channel.sv channel_formal.sv
+prep -top channel_formal
+
+[files]
+../../rtl/hdmi_channel.sv
+channel_formal.sv

@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# SPDX-FileCopyrightText: 2026 Howard M. Harte
+# Verible lint rule configuration for hh-hdmi (sim/lint.sh passes it with
+# --rules_config). Keep this list MINIMAL -- fix the RTL rather than waiving;
+# each waiver needs a one-line justification.
+
+# Project convention is ALL_CAPS_SNAKE for localparams as well as parameters;
+# Verible's default wants CamelCase localparams.
+-parameter-name-style

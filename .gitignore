@@ -1,0 +1,23 @@
+# --- Simulation build artifacts & logs (never committed) ---
+*.vvp
+*.vcd
+*.fst
+*.log
+.ninja_log
+.ninja_lock
+*.ninja_lock
+*.stamp
+sim/lint.ok
+
+# Python bytecode cache
+__pycache__/
+
+# Verilator coverage suite (sim/vl): the CMake build tree and run artifacts.
+# sim/vl/CMakeLists.txt, coverage.vlt, cov.ps1 and empty_main.cpp are source.
+sim/vl/build/
+sim/vl/build-*/
+sim/formal/build/
+hw/console60k/impl/
+hw/console60k/impl_*/
+hw/console60k/*.lock
+hw/console60k/results/

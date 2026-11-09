@@ -1,0 +1,545 @@
+{
+  "max_jobs": 2,
+  "jobs": [
+    {
+      "name": "channel_all_prove",
+      "file": "channel.sby",
+      "task": "all_prove",
+      "expect": "PASS",
+      "assert_min": 27,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "channel_all_cover",
+      "file": "channel.sby",
+      "task": "all_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 6,
+      "timeout": 300
+    },
+    {
+      "name": "channel_all_negative",
+      "file": "channel.sby",
+      "task": "all_negative",
+      "expect": "FAIL",
+      "assert_min": 30,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "packet_both_prove",
+      "file": "packet.sby",
+      "task": "both_prove",
+      "expect": "PASS",
+      "assert_min": 22,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "packet_both_cover",
+      "file": "packet.sby",
+      "task": "both_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "packet_both_negative",
+      "file": "packet.sby",
+      "task": "both_negative",
+      "expect": "FAIL",
+      "assert_min": 23,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "audio_fifo_prove",
+      "file": "audio.sby",
+      "task": "fifo_prove",
+      "expect": "PASS",
+      "assert_min": 24,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "audio_fifo_cover",
+      "file": "audio.sby",
+      "task": "fifo_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 3,
+      "timeout": 300
+    },
+    {
+      "name": "audio_fifo_negative",
+      "file": "audio.sby",
+      "task": "fifo_negative",
+      "expect": "FAIL",
+      "assert_min": 25,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_data_packing_prove",
+      "file": "gearbox_data.sby",
+      "task": "packing_prove",
+      "expect": "PASS",
+      "assert_min": 6,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_data_packing_cover",
+      "file": "gearbox_data.sby",
+      "task": "packing_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 2,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_data_packing_negative",
+      "file": "gearbox_data.sby",
+      "task": "packing_negative",
+      "expect": "FAIL",
+      "assert_min": 7,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase0_together_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase0_together_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase0_together_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase0_together_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase0_together_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase0_together_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase0_pixel_first_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase0_pixel_first_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase0_pixel_first_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase0_pixel_first_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase0_pixel_first_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase0_pixel_first_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase0_word_first_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase0_word_first_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase0_word_first_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase0_word_first_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase0_word_first_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase0_word_first_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase1_together_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase1_together_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase1_together_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase1_together_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase1_together_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase1_together_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase1_pixel_first_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase1_pixel_first_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase1_pixel_first_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase1_pixel_first_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase1_pixel_first_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase1_pixel_first_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase1_word_first_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase1_word_first_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase1_word_first_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase1_word_first_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase1_word_first_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase1_word_first_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase2_together_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase2_together_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase2_together_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase2_together_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase2_together_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase2_together_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase2_pixel_first_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase2_pixel_first_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase2_pixel_first_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase2_pixel_first_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase2_pixel_first_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase2_pixel_first_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase2_word_first_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase2_word_first_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase2_word_first_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase2_word_first_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase2_word_first_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase2_word_first_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase3_together_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase3_together_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase3_together_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase3_together_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase3_together_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase3_together_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase3_pixel_first_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase3_pixel_first_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase3_pixel_first_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase3_pixel_first_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase3_pixel_first_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase3_pixel_first_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase3_word_first_prove",
+      "file": "gearbox_stream.sby",
+      "task": "phase3_word_first_prove",
+      "expect": "PASS",
+      "assert_min": 20,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase3_word_first_cover",
+      "file": "gearbox_stream.sby",
+      "task": "phase3_word_first_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 1,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_stream_phase3_word_first_negative",
+      "file": "gearbox_stream.sby",
+      "task": "phase3_word_first_negative",
+      "expect": "FAIL",
+      "assert_min": 21,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase0_prove",
+      "file": "gearbox_fault.sby",
+      "task": "phase0_prove",
+      "expect": "PASS",
+      "assert_min": 6,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase0_cover",
+      "file": "gearbox_fault.sby",
+      "task": "phase0_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 3,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase0_negative",
+      "file": "gearbox_fault.sby",
+      "task": "phase0_negative",
+      "expect": "FAIL",
+      "assert_min": 7,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase1_prove",
+      "file": "gearbox_fault.sby",
+      "task": "phase1_prove",
+      "expect": "PASS",
+      "assert_min": 6,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase1_cover",
+      "file": "gearbox_fault.sby",
+      "task": "phase1_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 3,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase1_negative",
+      "file": "gearbox_fault.sby",
+      "task": "phase1_negative",
+      "expect": "FAIL",
+      "assert_min": 7,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase2_prove",
+      "file": "gearbox_fault.sby",
+      "task": "phase2_prove",
+      "expect": "PASS",
+      "assert_min": 6,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase2_cover",
+      "file": "gearbox_fault.sby",
+      "task": "phase2_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 3,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase2_negative",
+      "file": "gearbox_fault.sby",
+      "task": "phase2_negative",
+      "expect": "FAIL",
+      "assert_min": 7,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase3_prove",
+      "file": "gearbox_fault.sby",
+      "task": "phase3_prove",
+      "expect": "PASS",
+      "assert_min": 6,
+      "cover_min": 0,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase3_cover",
+      "file": "gearbox_fault.sby",
+      "task": "phase3_cover",
+      "expect": "PASS",
+      "assert_min": 0,
+      "cover_min": 3,
+      "timeout": 300
+    },
+    {
+      "name": "gearbox_fault_phase3_negative",
+      "file": "gearbox_fault.sby",
+      "task": "phase3_negative",
+      "expect": "FAIL",
+      "assert_min": 7,
+      "cover_min": 0,
+      "timeout": 300
+    }
+  ]
+}

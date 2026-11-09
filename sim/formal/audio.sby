@@ -1,0 +1,32 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# SPDX-FileCopyrightText: 2026 Howard M. Harte
+
+[tasks]
+fifo_prove
+fifo_cover
+fifo_negative
+
+[options]
+timeout 240
+fifo_prove: mode prove
+fifo_prove: depth 360
+fifo_cover: mode cover
+fifo_cover: depth 360
+fifo_negative: mode bmc
+fifo_negative: depth 360
+
+[engines]
+fifo_prove: abc pdr
+fifo_cover: smtbmc boolector
+fifo_negative: smtbmc boolector
+
+[script]
+plugin -i slang
+fifo_prove: read_slang --top audio_formal  hdmi_audio_src.sv audio_formal.sv
+fifo_cover: read_slang --top audio_formal  hdmi_audio_src.sv audio_formal.sv
+fifo_negative: read_slang -D FORMAL_NEGATIVE --top audio_formal  hdmi_audio_src.sv audio_formal.sv
+prep -top audio_formal
+
+[files]
+../../rtl/hdmi_audio_src.sv
+audio_formal.sv

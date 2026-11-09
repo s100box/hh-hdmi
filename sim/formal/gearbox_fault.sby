@@ -1,0 +1,106 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# SPDX-FileCopyrightText: 2026 Howard M. Harte
+
+[tasks]
+phase0_prove
+phase0_cover
+phase0_negative
+phase1_prove
+phase1_cover
+phase1_negative
+phase2_prove
+phase2_cover
+phase2_negative
+phase3_prove
+phase3_cover
+phase3_negative
+
+[options]
+timeout 240
+phase0_prove: mode prove
+phase0_prove: depth 320
+phase0_cover: mode cover
+phase0_cover: depth 320
+phase0_negative: mode bmc
+phase0_negative: depth 320
+phase1_prove: mode prove
+phase1_prove: depth 320
+phase1_cover: mode cover
+phase1_cover: depth 320
+phase1_negative: mode bmc
+phase1_negative: depth 320
+phase2_prove: mode prove
+phase2_prove: depth 320
+phase2_cover: mode cover
+phase2_cover: depth 320
+phase2_negative: mode bmc
+phase2_negative: depth 320
+phase3_prove: mode prove
+phase3_prove: depth 320
+phase3_cover: mode cover
+phase3_cover: depth 320
+phase3_negative: mode bmc
+phase3_negative: depth 320
+multiclock on
+
+[engines]
+phase0_prove: abc pdr
+phase0_cover: smtbmc boolector
+phase0_negative: abc bmc3
+phase1_prove: abc pdr
+phase1_cover: smtbmc boolector
+phase1_negative: abc bmc3
+phase2_prove: abc pdr
+phase2_cover: smtbmc boolector
+phase2_negative: abc bmc3
+phase3_prove: abc pdr
+phase3_cover: smtbmc boolector
+phase3_negative: abc bmc3
+
+[script]
+plugin -i slang
+phase0_prove: read_slang --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase0_prove: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase0_prove: chparam -set WORD_PHASE 0 gearbox_fault_clock_formal
+phase0_cover: read_slang --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase0_cover: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase0_cover: chparam -set WORD_PHASE 0 gearbox_fault_clock_formal
+phase0_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase0_negative: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase0_negative: chparam -set WORD_PHASE 0 gearbox_fault_clock_formal
+phase1_prove: read_slang --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase1_prove: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase1_prove: chparam -set WORD_PHASE 1 gearbox_fault_clock_formal
+phase1_cover: read_slang --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase1_cover: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase1_cover: chparam -set WORD_PHASE 1 gearbox_fault_clock_formal
+phase1_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase1_negative: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase1_negative: chparam -set WORD_PHASE 1 gearbox_fault_clock_formal
+phase2_prove: read_slang --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase2_prove: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase2_prove: chparam -set WORD_PHASE 2 gearbox_fault_clock_formal
+phase2_cover: read_slang --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase2_cover: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase2_cover: chparam -set WORD_PHASE 2 gearbox_fault_clock_formal
+phase2_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase2_negative: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase2_negative: chparam -set WORD_PHASE 2 gearbox_fault_clock_formal
+phase3_prove: read_slang --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase3_prove: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase3_prove: chparam -set WORD_PHASE 3 gearbox_fault_clock_formal
+phase3_cover: read_slang --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase3_cover: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase3_cover: chparam -set WORD_PHASE 3 gearbox_fault_clock_formal
+phase3_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_fault_formal  hdmi_gearbox_10to8.sv gearbox_fault_formal.sv
+phase3_negative: read_verilog -formal -sv gearbox_fault_clock_formal.sv
+phase3_negative: chparam -set WORD_PHASE 3 gearbox_fault_clock_formal
+prep -top gearbox_fault_clock_formal
+techmap
+opt
+setundef -undriven -anyseq
+
+[files]
+../../rtl/hdmi_gearbox_10to8.sv
+gearbox_fault_formal.sv
+gearbox_fault_clock_formal.sv

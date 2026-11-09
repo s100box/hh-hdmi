@@ -1,0 +1,6 @@
+# Normalize line endings to LF in the working tree for all text files.
+# Without this, core.autocrlf=true materializes CRLF on Windows checkouts,
+# which trips LF-native tooling (e.g. Verible's formatter safety check, which
+# aborts on a trailing \r token mismatch). text=auto lets git auto-detect
+# binaries and leave them untouched.
+* text=auto eol=lf

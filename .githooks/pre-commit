@@ -1,0 +1,27 @@
+#!/bin/sh
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# SPDX-FileCopyrightText: 2026 Howard M. Harte
+# Pre-commit gate: Verible lint + format check and the self-checking iverilog
+# benches must pass.
+# Both scripts auto-discover their tool (Verible / the OSS CAD Suite) from $VERIBLE /
+# $OSS_CAD_SUITE, PATH, or a release unzipped under the user's home, and skip
+# themselves gracefully if none is found -- so a plain clone still commits.
+#
+#   Enable once per clone:  git config core.hooksPath .githooks
+#   Bypass a WIP commit:    git commit --no-verify
+set -e
+# ../retrosim-build/hooks/gate-env.sh, when present, puts Verible and the OSS
+# CAD Suite on PATH from the workspace toolchain pin (and fixes Git-for-Windows'
+# DLL shadowing of oss-cad's); without it the two scripts discover their tools.
+_geroot="$(git rev-parse --show-toplevel)"
+[ -f "$_geroot/../retrosim-build/hooks/gate-env.sh" ] && . "$_geroot/../retrosim-build/hooks/gate-env.sh"
+
+root="$(git rev-parse --show-toplevel)"
+
+echo "[pre-commit] verible lint + format check"
+bash "$root/sim/lint.sh"
+
+echo "[pre-commit] smoke benches"
+bash "$root/sim/gate.sh"
+
+echo "[pre-commit] OK"

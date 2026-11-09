@@ -1,0 +1,346 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# SPDX-FileCopyrightText: 2026 Howard M. Harte
+
+[tasks]
+phase0_together_prove
+phase0_together_cover
+phase0_together_negative
+phase0_pixel_first_prove
+phase0_pixel_first_cover
+phase0_pixel_first_negative
+phase0_word_first_prove
+phase0_word_first_cover
+phase0_word_first_negative
+phase1_together_prove
+phase1_together_cover
+phase1_together_negative
+phase1_pixel_first_prove
+phase1_pixel_first_cover
+phase1_pixel_first_negative
+phase1_word_first_prove
+phase1_word_first_cover
+phase1_word_first_negative
+phase2_together_prove
+phase2_together_cover
+phase2_together_negative
+phase2_pixel_first_prove
+phase2_pixel_first_cover
+phase2_pixel_first_negative
+phase2_word_first_prove
+phase2_word_first_cover
+phase2_word_first_negative
+phase3_together_prove
+phase3_together_cover
+phase3_together_negative
+phase3_pixel_first_prove
+phase3_pixel_first_cover
+phase3_pixel_first_negative
+phase3_word_first_prove
+phase3_word_first_cover
+phase3_word_first_negative
+
+[options]
+timeout 240
+phase0_together_prove: mode prove
+phase0_together_prove: depth 40
+phase0_together_cover: mode cover
+phase0_together_cover: depth 128
+phase0_together_negative: mode bmc
+phase0_together_negative: depth 128
+phase0_pixel_first_prove: mode prove
+phase0_pixel_first_prove: depth 40
+phase0_pixel_first_cover: mode cover
+phase0_pixel_first_cover: depth 128
+phase0_pixel_first_negative: mode bmc
+phase0_pixel_first_negative: depth 128
+phase0_word_first_prove: mode prove
+phase0_word_first_prove: depth 40
+phase0_word_first_cover: mode cover
+phase0_word_first_cover: depth 128
+phase0_word_first_negative: mode bmc
+phase0_word_first_negative: depth 128
+phase1_together_prove: mode prove
+phase1_together_prove: depth 40
+phase1_together_cover: mode cover
+phase1_together_cover: depth 128
+phase1_together_negative: mode bmc
+phase1_together_negative: depth 128
+phase1_pixel_first_prove: mode prove
+phase1_pixel_first_prove: depth 40
+phase1_pixel_first_cover: mode cover
+phase1_pixel_first_cover: depth 128
+phase1_pixel_first_negative: mode bmc
+phase1_pixel_first_negative: depth 128
+phase1_word_first_prove: mode prove
+phase1_word_first_prove: depth 40
+phase1_word_first_cover: mode cover
+phase1_word_first_cover: depth 128
+phase1_word_first_negative: mode bmc
+phase1_word_first_negative: depth 128
+phase2_together_prove: mode prove
+phase2_together_prove: depth 40
+phase2_together_cover: mode cover
+phase2_together_cover: depth 128
+phase2_together_negative: mode bmc
+phase2_together_negative: depth 128
+phase2_pixel_first_prove: mode prove
+phase2_pixel_first_prove: depth 40
+phase2_pixel_first_cover: mode cover
+phase2_pixel_first_cover: depth 128
+phase2_pixel_first_negative: mode bmc
+phase2_pixel_first_negative: depth 128
+phase2_word_first_prove: mode prove
+phase2_word_first_prove: depth 40
+phase2_word_first_cover: mode cover
+phase2_word_first_cover: depth 128
+phase2_word_first_negative: mode bmc
+phase2_word_first_negative: depth 128
+phase3_together_prove: mode prove
+phase3_together_prove: depth 40
+phase3_together_cover: mode cover
+phase3_together_cover: depth 128
+phase3_together_negative: mode bmc
+phase3_together_negative: depth 128
+phase3_pixel_first_prove: mode prove
+phase3_pixel_first_prove: depth 40
+phase3_pixel_first_cover: mode cover
+phase3_pixel_first_cover: depth 128
+phase3_pixel_first_negative: mode bmc
+phase3_pixel_first_negative: depth 128
+phase3_word_first_prove: mode prove
+phase3_word_first_prove: depth 40
+phase3_word_first_cover: mode cover
+phase3_word_first_cover: depth 128
+phase3_word_first_negative: mode bmc
+phase3_word_first_negative: depth 128
+multiclock on
+
+[engines]
+phase0_together_prove: smtbmc boolector
+phase0_together_cover: smtbmc boolector
+phase0_together_negative: abc bmc3
+phase0_pixel_first_prove: smtbmc boolector
+phase0_pixel_first_cover: smtbmc boolector
+phase0_pixel_first_negative: abc bmc3
+phase0_word_first_prove: smtbmc boolector
+phase0_word_first_cover: smtbmc boolector
+phase0_word_first_negative: abc bmc3
+phase1_together_prove: smtbmc boolector
+phase1_together_cover: smtbmc boolector
+phase1_together_negative: abc bmc3
+phase1_pixel_first_prove: smtbmc boolector
+phase1_pixel_first_cover: smtbmc boolector
+phase1_pixel_first_negative: abc bmc3
+phase1_word_first_prove: smtbmc boolector
+phase1_word_first_cover: smtbmc boolector
+phase1_word_first_negative: abc bmc3
+phase2_together_prove: smtbmc boolector
+phase2_together_cover: smtbmc boolector
+phase2_together_negative: abc bmc3
+phase2_pixel_first_prove: smtbmc boolector
+phase2_pixel_first_cover: smtbmc boolector
+phase2_pixel_first_negative: abc bmc3
+phase2_word_first_prove: smtbmc boolector
+phase2_word_first_cover: smtbmc boolector
+phase2_word_first_negative: abc bmc3
+phase3_together_prove: smtbmc boolector
+phase3_together_cover: smtbmc boolector
+phase3_together_negative: abc bmc3
+phase3_pixel_first_prove: smtbmc boolector
+phase3_pixel_first_cover: smtbmc boolector
+phase3_pixel_first_negative: abc bmc3
+phase3_word_first_prove: smtbmc boolector
+phase3_word_first_cover: smtbmc boolector
+phase3_word_first_negative: abc bmc3
+
+[script]
+plugin -i slang
+phase0_together_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase0_together_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase0_together_prove: chparam -set WORD_PHASE 0 gearbox_stream_clock_formal
+phase0_together_prove: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase0_together_prove: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase0_together_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase0_together_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase0_together_cover: chparam -set WORD_PHASE 0 gearbox_stream_clock_formal
+phase0_together_cover: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase0_together_cover: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase0_together_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase0_together_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase0_together_negative: chparam -set WORD_PHASE 0 gearbox_stream_clock_formal
+phase0_together_negative: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase0_together_negative: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase0_pixel_first_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase0_pixel_first_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase0_pixel_first_prove: chparam -set WORD_PHASE 0 gearbox_stream_clock_formal
+phase0_pixel_first_prove: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase0_pixel_first_prove: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase0_pixel_first_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase0_pixel_first_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase0_pixel_first_cover: chparam -set WORD_PHASE 0 gearbox_stream_clock_formal
+phase0_pixel_first_cover: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase0_pixel_first_cover: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase0_pixel_first_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase0_pixel_first_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase0_pixel_first_negative: chparam -set WORD_PHASE 0 gearbox_stream_clock_formal
+phase0_pixel_first_negative: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase0_pixel_first_negative: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase0_word_first_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase0_word_first_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase0_word_first_prove: chparam -set WORD_PHASE 0 gearbox_stream_clock_formal
+phase0_word_first_prove: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase0_word_first_prove: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase0_word_first_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase0_word_first_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase0_word_first_cover: chparam -set WORD_PHASE 0 gearbox_stream_clock_formal
+phase0_word_first_cover: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase0_word_first_cover: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase0_word_first_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase0_word_first_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase0_word_first_negative: chparam -set WORD_PHASE 0 gearbox_stream_clock_formal
+phase0_word_first_negative: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase0_word_first_negative: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase1_together_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase1_together_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase1_together_prove: chparam -set WORD_PHASE 1 gearbox_stream_clock_formal
+phase1_together_prove: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase1_together_prove: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase1_together_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase1_together_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase1_together_cover: chparam -set WORD_PHASE 1 gearbox_stream_clock_formal
+phase1_together_cover: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase1_together_cover: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase1_together_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase1_together_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase1_together_negative: chparam -set WORD_PHASE 1 gearbox_stream_clock_formal
+phase1_together_negative: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase1_together_negative: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase1_pixel_first_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase1_pixel_first_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase1_pixel_first_prove: chparam -set WORD_PHASE 1 gearbox_stream_clock_formal
+phase1_pixel_first_prove: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase1_pixel_first_prove: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase1_pixel_first_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase1_pixel_first_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase1_pixel_first_cover: chparam -set WORD_PHASE 1 gearbox_stream_clock_formal
+phase1_pixel_first_cover: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase1_pixel_first_cover: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase1_pixel_first_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase1_pixel_first_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase1_pixel_first_negative: chparam -set WORD_PHASE 1 gearbox_stream_clock_formal
+phase1_pixel_first_negative: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase1_pixel_first_negative: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase1_word_first_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase1_word_first_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase1_word_first_prove: chparam -set WORD_PHASE 1 gearbox_stream_clock_formal
+phase1_word_first_prove: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase1_word_first_prove: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase1_word_first_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase1_word_first_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase1_word_first_cover: chparam -set WORD_PHASE 1 gearbox_stream_clock_formal
+phase1_word_first_cover: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase1_word_first_cover: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase1_word_first_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase1_word_first_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase1_word_first_negative: chparam -set WORD_PHASE 1 gearbox_stream_clock_formal
+phase1_word_first_negative: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase1_word_first_negative: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase2_together_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase2_together_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase2_together_prove: chparam -set WORD_PHASE 2 gearbox_stream_clock_formal
+phase2_together_prove: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase2_together_prove: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase2_together_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase2_together_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase2_together_cover: chparam -set WORD_PHASE 2 gearbox_stream_clock_formal
+phase2_together_cover: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase2_together_cover: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase2_together_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase2_together_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase2_together_negative: chparam -set WORD_PHASE 2 gearbox_stream_clock_formal
+phase2_together_negative: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase2_together_negative: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase2_pixel_first_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase2_pixel_first_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase2_pixel_first_prove: chparam -set WORD_PHASE 2 gearbox_stream_clock_formal
+phase2_pixel_first_prove: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase2_pixel_first_prove: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase2_pixel_first_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase2_pixel_first_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase2_pixel_first_cover: chparam -set WORD_PHASE 2 gearbox_stream_clock_formal
+phase2_pixel_first_cover: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase2_pixel_first_cover: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase2_pixel_first_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase2_pixel_first_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase2_pixel_first_negative: chparam -set WORD_PHASE 2 gearbox_stream_clock_formal
+phase2_pixel_first_negative: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase2_pixel_first_negative: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase2_word_first_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase2_word_first_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase2_word_first_prove: chparam -set WORD_PHASE 2 gearbox_stream_clock_formal
+phase2_word_first_prove: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase2_word_first_prove: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase2_word_first_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase2_word_first_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase2_word_first_cover: chparam -set WORD_PHASE 2 gearbox_stream_clock_formal
+phase2_word_first_cover: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase2_word_first_cover: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase2_word_first_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase2_word_first_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase2_word_first_negative: chparam -set WORD_PHASE 2 gearbox_stream_clock_formal
+phase2_word_first_negative: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase2_word_first_negative: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase3_together_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase3_together_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase3_together_prove: chparam -set WORD_PHASE 3 gearbox_stream_clock_formal
+phase3_together_prove: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase3_together_prove: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase3_together_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase3_together_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase3_together_cover: chparam -set WORD_PHASE 3 gearbox_stream_clock_formal
+phase3_together_cover: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase3_together_cover: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase3_together_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase3_together_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase3_together_negative: chparam -set WORD_PHASE 3 gearbox_stream_clock_formal
+phase3_together_negative: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase3_together_negative: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase3_pixel_first_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase3_pixel_first_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase3_pixel_first_prove: chparam -set WORD_PHASE 3 gearbox_stream_clock_formal
+phase3_pixel_first_prove: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase3_pixel_first_prove: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase3_pixel_first_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase3_pixel_first_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase3_pixel_first_cover: chparam -set WORD_PHASE 3 gearbox_stream_clock_formal
+phase3_pixel_first_cover: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase3_pixel_first_cover: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase3_pixel_first_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase3_pixel_first_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase3_pixel_first_negative: chparam -set WORD_PHASE 3 gearbox_stream_clock_formal
+phase3_pixel_first_negative: chparam -set PIX_RELEASE 31 gearbox_stream_clock_formal
+phase3_pixel_first_negative: chparam -set WORD_RELEASE 39 gearbox_stream_clock_formal
+phase3_word_first_prove: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase3_word_first_prove: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase3_word_first_prove: chparam -set WORD_PHASE 3 gearbox_stream_clock_formal
+phase3_word_first_prove: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase3_word_first_prove: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase3_word_first_cover: read_slang --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase3_word_first_cover: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase3_word_first_cover: chparam -set WORD_PHASE 3 gearbox_stream_clock_formal
+phase3_word_first_cover: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase3_word_first_cover: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+phase3_word_first_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_stream_formal  hdmi_gearbox_10to8.sv gearbox_stream_formal.sv
+phase3_word_first_negative: read_verilog -formal -sv gearbox_stream_clock_formal.sv
+phase3_word_first_negative: chparam -set WORD_PHASE 3 gearbox_stream_clock_formal
+phase3_word_first_negative: chparam -set PIX_RELEASE 39 gearbox_stream_clock_formal
+phase3_word_first_negative: chparam -set WORD_RELEASE 31 gearbox_stream_clock_formal
+prep -top gearbox_stream_clock_formal
+techmap
+opt
+setundef -undriven -anyseq
+
+[files]
+../../rtl/hdmi_gearbox_10to8.sv
+gearbox_stream_formal.sv
+gearbox_stream_clock_formal.sv

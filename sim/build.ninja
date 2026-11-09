@@ -1,0 +1,56 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# SPDX-FileCopyrightText: 2026 Howard M. Harte
+# Ninja build for hh-hdmi static analysis + simulation.
+#
+#   ninja           default -- Verible lint + format check (the gate)
+#   ninja lint      lint.sh: verible-verilog-lint over the RTL, then
+#                   verible-verilog-format --verify over the RTL and benches
+#   ninja sim       the self-checking iverilog benches (gate.sh)
+#
+# The benches are prim-free (the vendor primitives live only in the serializers,
+# taken here in their generic simulation form), so a plain iverilog runs them with
+# no vendor library.
+ninja_required_version = 1.10
+
+# $bash_exe comes from the sibling checkout retrosim-build's toolchain.ninja, the
+# one file in the workspace that names a tool install. A bare `bash` would not do
+# on a Windows host with WSL: CreateProcess searches System32 before PATH and finds
+# the Linux bash there.
+include ../../retrosim-build/toolchain.ninja
+
+rule lint
+  command = $bash_exe lint.sh
+rule sim
+  command = $bash_exe gate.sh
+rule formal_suite
+  command = python ../../retrosim-build/tools/formal_suite.py formal/suite.json $negative
+  pool = console
+
+build formal: formal_suite formal/suite.json || lint.ok
+build formal-negative: formal_suite formal/suite.json || lint.ok
+  negative = --negative
+
+build lint.ok: lint lint.sh ../.rules.verible_lint ../.verible.format $
+    ../rtl/hdmi_channel.sv ../rtl/hdmi_packet.sv $
+    ../rtl/hdmi_audio_src.sv ../rtl/hdmi_encoder.sv ../rtl/hdmi_serializer.sv $
+    ../rtl/hdmi_serializer_us.sv ../rtl/hdmi_gearbox_10to8.sv ../rtl/edid_i2c.sv $
+    ../rtl/hdmi_cec.sv tb_di_equiv.sv tb_di_bch.sv tb_sync_timing.sv $
+    tb_encoder_modes.sv tb_channel.sv tb_packet.sv tb_audio_src.sv tb_spd.sv tb_avi.sv $
+    tb_edid_i2c.sv tb_edid_i2c_err.sv tb_cec.sv tb_serializer.sv tb_serializer_us.sv $
+    tb_gearbox.sv tb_pll_video.sv ../pll/pll_video_60k.v ../pll/pll_video_138k.v $
+    formal/channel_formal.sv formal/packet_formal.sv formal/audio_formal.sv $
+    formal/gearbox_data_formal.sv $
+    formal/gearbox_stream_formal.sv formal/gearbox_stream_clock_formal.sv $
+    formal/gearbox_fault_formal.sv formal/gearbox_fault_clock_formal.sv $
+    ../hw/console60k/edid_probe.sv
+build lint: phony lint.ok
+
+build sim: sim gate.sh tb_di_equiv.sv tb_di_bch.sv tb_sync_timing.sv tb_encoder_modes.sv $
+    tb_channel.sv tb_packet.sv tb_audio_src.sv tb_spd.sv tb_avi.sv tb_edid_i2c.sv tb_edid_i2c_err.sv $
+    tb_cec.sv tb_serializer.sv tb_serializer_us.sv tb_gearbox.sv tb_pll_video.sv $
+    ../pll/pll_video_60k.v ../pll/pll_video_138k.v $
+    ../rtl/hdmi_encoder.sv ../rtl/hdmi_audio_src.sv ../rtl/hdmi_packet.sv $
+    ../rtl/hdmi_channel.sv ../rtl/edid_i2c.sv ../rtl/hdmi_cec.sv ../rtl/hdmi_serializer.sv $
+    ../rtl/hdmi_serializer_us.sv ../rtl/hdmi_gearbox_10to8.sv || lint.ok
+
+default lint

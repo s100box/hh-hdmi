@@ -1,0 +1,32 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# SPDX-FileCopyrightText: 2026 Howard M. Harte
+
+[tasks]
+packing_prove
+packing_cover
+packing_negative
+
+[options]
+timeout 240
+packing_prove: mode prove
+packing_prove: depth 32
+packing_cover: mode cover
+packing_cover: depth 32
+packing_negative: mode bmc
+packing_negative: depth 32
+
+[engines]
+packing_prove: smtbmc boolector
+packing_cover: smtbmc boolector
+packing_negative: smtbmc boolector
+
+[script]
+plugin -i slang
+packing_prove: read_slang --top gearbox_data_formal  hdmi_gearbox_10to8.sv gearbox_data_formal.sv
+packing_cover: read_slang --top gearbox_data_formal  hdmi_gearbox_10to8.sv gearbox_data_formal.sv
+packing_negative: read_slang -D FORMAL_NEGATIVE --top gearbox_data_formal  hdmi_gearbox_10to8.sv gearbox_data_formal.sv
+prep -top gearbox_data_formal
+
+[files]
+../../rtl/hdmi_gearbox_10to8.sv
+gearbox_data_formal.sv
